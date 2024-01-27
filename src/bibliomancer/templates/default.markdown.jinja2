@@ -1,0 +1,57 @@
+# Publications
+
+- [Journal Articles](#Journal_Articles)
+- [Preprints](#Preprints)
+- [Book Chapters](#Book_Chapters)
+- [Conference Proceedings](#Conference_Proceedings)
+- [Datasets](#Datasets)
+
+{# Macro for displaying an entry #}
+{% macro display_entry(entry) %}
+- {{ entry.authors | join(', ') }} ({{ entry.year }}). **{{ entry.title }}**. In
+{%- if entry.type == 'JournalArticle' %} *{{ entry.journal }}{% if entry.local_id is not none %}, {{ entry.local_id }} {% endif %}*
+{%- endif -%}
+{%- if entry.type == 'Preprint' %} *{{ entry.repository }}*
+{%- endif -%}
+{%- if entry.type == 'ConferencePaper' %} *{{ entry.conference_proceedings }}*
+{%- endif -%}
+{%- if entry.doi %} doi:[{{ entry.doi }}](https://doi.org/{{ entry.doi }}){% endif -%}
+{%- if entry.pmic %} PMID:[{{ entry.pmid }}](https://www.ncbi.nlm.nih.gov/pubmed/{{ entry.pmid }}){% endif -%}
+{%- if entry.pmcid %} PMCID:[{{ entry.pmcid }}](https://www.ncbi.nlm.nih.gov/pmc/articles/{{ entry.pmcid }}/){% endif -%}
+{%- if entry.arxiv_id %} arXiv:[{{ entry.arxiv_id }}](https://arxiv.org/abs/{{ entry.arxiv_id }}){% endif -%}
+{%- if entry.ceur_ws_url %} CEUR-WS:[{{ entry.ceur_ws_url }}]({{ entry.ceur_ws_url }}){% endif -%}
+{%- if entry.role %} _Role_: **{{ entry.role }}** {% endif -%}
+{% endmacro %}
+
+{# Macro for a group #}
+{% macro display_entries(entries, title) %}
+{% if entries %}
+
+<a name="{{ title | replace(' ', '_') }}"></a>
+
+## {{ title }}
+{% set ns = namespace(current_year=None) %}
+{% for entry in entries %}
+{% if entry.year != ns.current_year %}
+
+### {{ entry.year }}
+
+{% set ns.current_year = entry.year %}
+{% endif %}
+{{ display_entry(entry) }}
+{% endfor %}
+{% endif %}
+{% endmacro %}
+
+{# Group entries by type #}
+{% set articles = entries | selectattr("type", "equalto", "JournalArticle") | list %}
+{% set preprints = entries | selectattr("type", "equalto", "Preprint") | list %}
+{% set book_chapters = entries | selectattr("type", "equalto", "BookChapter") | list %}
+{% set proceedings = entries | selectattr("type", "equalto", "ConferencePaper") | list %}
+{% set datasets = entries | selectattr("type", "equalto", "Dataset") | list %}
+
+{{ display_entries(articles, "Journal Articles") }}
+{{ display_entries(preprints, "Preprints") }}
+{{ display_entries(book_chapters, "Book Chapters") }}
+{{ display_entries(proceedings, "Conference Proceedings") }}
+{{ display_entries(datasets, "Datasets") }}

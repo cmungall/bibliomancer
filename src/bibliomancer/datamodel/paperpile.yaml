@@ -1,0 +1,566 @@
+name: paperpile
+description: paperpile
+id: https://w3id.org/paperpile
+imports:
+- linkml:types
+prefixes:
+  linkml: https://w3id.org/linkml/
+  paperpile: https://w3id.org/bibliomancer/paperpile
+  datacite_vocab: http://purl.org/datacite/v4.4/
+  spar_datacite: http://purl.org/spar/datacite/
+  datacite: https://schema.datacite.org/
+  dcterm: http://purl.org/dc/terms/
+  bibo: http://purl.org/ontology/bibo/
+  schema: http://schema.org/
+default_prefix: paperpile
+types:
+  identifier:
+    typeof: string
+  https identifier:
+    typeof: string
+  measurement:
+    description: Holds a measurement serialized as a string
+    typeof: string
+enums:
+  Item_type_enum:
+    permissible_values:
+      Preprint Manuscript:
+        description: Preprint Manuscript
+      Thesis:
+        description: Thesis
+      Book Chapter:
+        description: Book Chapter
+      Dataset:
+        description: Dataset
+      Journal Article:
+        description: Journal Article
+      Video or Film:
+        description: Video or Film
+      Review:
+        description: Review
+      Conference Paper:
+        description: Conference Paper
+      Report:
+        description: Report
+      Computer Program:
+        description: Computer Program
+      News:
+        description: News
+  Language_enum:
+    enum_uri: http://hl7.org/fhir/ValueSet/languages
+    permissible_values:
+      en:
+        description: English
+  Sub-type_enum:
+    permissible_values:
+      Review:
+        description: Review
+      Research Article:
+        description: Research Article
+      Online Video:
+        description: Online Video
+      News:
+        description: News
+  Archive_prefix_enum:
+    permissible_values:
+      arXiv:
+        description: arXiv
+slots:
+  Item type:
+    examples:
+    - value: Journal Article
+    range: Item_type_enum
+  Authors:
+    description: Comma-separated list of authors
+    annotations:
+      separator: ','
+    examples:
+    - value: Vasilevsky N,Matentzoglu N,Toro S,Flack J,Hamosh A,Robinson P,Haendel
+        M,Mungall C
+    range: string
+  Editors:
+    examples:
+    - value: Golbreich C,Kalyanpur A,Parsia B
+    range: string
+    annotations:
+      separator: ','
+  Title:
+    examples:
+    - value: Standardization of cancer terminology in the Mondo Disease Ontology
+    multivalued: true
+    range: string
+    slot_uri: dcterm:title
+  Journal:
+    examples:
+    - value: Cancer Genet.
+    range: string
+  Full journal:
+    examples:
+    - value: Cancer genetics
+    range: string
+  Publication year:
+    examples:
+    - value: '2022'
+    range: integer
+  Volume:
+    examples:
+    - value: '268'
+    range: string
+  Issue:
+    examples:
+    - value: '7'
+    range: string
+  Pages:
+    examples:
+    - value: '41'
+    range: string
+  Folders filed in:
+    examples:
+    - value: Chris Mungall Publications OLD;CJM-Pubs
+    range: string
+  Labels filed in:
+    examples:
+    - value: file-import-09-12-07
+    range: string
+  Institution:
+    examples:
+    - value: CEUR-WS
+    range: string
+  Publisher:
+    examples:
+    - value: Elsevier
+    range: string
+  Address:
+    examples:
+    - value: London
+    range: string
+  Book title:
+    examples:
+    - value: 'Anatomy Ontologies for Bioinformatics: Principles and Practice'
+    range: string
+  Proceedings title:
+    examples:
+    - value: International Conference on Biomedical Ontology
+    range: string
+  Conference:
+    examples:
+    - value: 'Proceedings of the OWLED 2007 Workshop on OWL: Experiences and Directions'
+    range: string
+  Conference location:
+    examples:
+    - value: Innsbruck, Austria
+    range: string
+  Conference date:
+    examples:
+    - value: June 6-7 2007
+    range: datetime
+  Date published:
+    examples:
+    - value: '2022-11-01'
+    range: datetime
+  Date accessed:
+    examples:
+    - value: '2023-12-10'
+    range: datetime
+  ISBN:
+    examples:
+    - value: '9781846288852'
+    range: integer
+  ISBN (alt.):
+    examples:
+    - value: '9781846288852'
+    range: integer
+  ISSN:
+    examples:
+    - value: 2210-7762
+    range: string
+  ISSN (alt.):
+    examples:
+    - value: 1367-4811
+    range: string
+  URLs:
+    examples:
+    - value: https://doi.org/10.1016/j.cancergen.2022.10.132;http://dx.doi.org/10.1016/j.cancergen.2022.10.132;https://www.cancergeneticsjournal.org/article/S2210-7762(22)00259-9/abstract
+    range: identifier
+  DOI:
+    examples:
+    - value: 10.1016/j.cancergen.2022.10.132
+    range: string
+  PMID:
+    examples:
+    - value: '35961013'
+    range: integer
+  Arxiv ID:
+    examples:
+    - value: '2307.05727'
+    range: float
+  Associated DOI:
+    examples:
+    - value: 10.1093/database/baac087
+    range: string
+  PMC ID:
+    examples:
+    - value: PMC9374478
+    range: string
+  Abstract:
+    examples:
+    - value: Biomedical ontologies provide a standard computable representation of
+        knowledge that can be used to integrate and navigate large amounts of heterogeneous
+        data for downstream computational analysis and knowledge discovery. The Mondo
+        Disease Ontology (Mondo) is a semantic resource that integrates several existing
+        disease terminologies, provides precise, curated semantic mappings between
+        them, and unifies them into one coherent classification of diseases. Cancer
+        concepts in Mondo are formally classified into a hierarchical representation,
+        which can be used to annotate data at different levels of granularity. Neoplasm
+        is the top-level class and subtypes (subclasses) are largely aligned with
+        the NCIt neoplasm branch, with malignant neoplasms (cancers) being classified
+        as subtypes. Classes are grouped in multiple ways, such as by anatomical entities
+        affected (such as cardiovascular or digestive system neoplasms), by malignancy
+        (benign, pre-malignant, or malignant, or onset (childhood neoplasm). In addition,
+        Mondo has representations of susceptibilities to cancers and hereditary neoplastic
+        syndromes such as Lynch Syndrome and Li-Fraumeni syndrome. Mondo provides
+        mappings to other disease resources such as the National Cancer Institute
+        Thesaurus (NCIt), as well as cancer terminology from Orphanet, OMIM, Disease
+        Ontology, and others. Mondo precisely annotates each mapping using strict
+        semantics, so that we know when two diseases are precisely equivalent or merely
+        closely related. Mondo is iteratively developed and revised and we invite
+        the community to contribute to Mondo; visit github.com/monarch-initiative/mondo
+        for details.
+    range: string
+  Keywords:
+    examples:
+    - value: FAIR data; Global Alliance for Genomics and Health; Human Phenotype Ontology;
+        Phenopacket Schema; deep phenotyping
+    range: string
+  Notes:
+    examples:
+    - value: "<p><strong>From Duplicate 2 ( </strong> <strong><em>{CARO - The Common\
+        \ Anatomy Reference Ontology}</em></strong> <strong> - Haendel, Melissa A.;\
+        \ Neuhaus, Fabian; Osumi-Sutherland, David; Mabee, Paula M.; Mejino, Jos\xE9\
+        \ L.V. Jr.; Mungall, Chris J.; Smith, Barry ) </strong></p>"
+    range: string
+  Short title:
+    examples:
+    - value: Arachne
+    range: string
+  Copyright:
+    examples:
+    - value: http://creativecommons.org/licenses/by/4.0/
+    range: identifier
+  Affiliation:
+    examples:
+    - value: AA(Lawrence Berkeley National Laboratory, California), AB(Lawrence Berkeley
+        National Laboratory, California), AC(Lawrence Berkeley National Laboratory,
+        California), AD(Colorado State University), AE(Lawrence Berkeley National
+        Laboratory, California), AF(Lawrence Berkeley National Laboratory, California),
+        AG(Lawrence Berkeley National Laboratory, California), AH(Lawrence Berkeley
+        National Laboratory, California), AI(Oak Ridge National Laboratory, Tennessee),
+        AJ(Joint Genome Institute, Walnut Creek, United States), AK(Lawrence Berkeley
+        National Laboratory, California), AL(Joint Genome Institute, Walnut Creek,
+        United States), AM(Pacific Northwest National Laboratory), AN(Joint Genome
+        Institute, Berkeley, United States), AO(Lawrence Berkeley National Laboratory,
+        California), AP(Pacific Northwest National Laboratory), AQ(Lawrence Livermore
+        National Laboratory, California), AR(Lawrence Berkeley National Laboratory,
+        California), AS(Lawrence Berkeley National Laboratory, California), AT(Joint
+        Genome Institute, Berkeley, United States), AU(Joint Genome Institute, Berkeley,
+        United States), AV(Lawrence Berkeley National Laboratory, California), AW(Pacific
+        Northwest National Laboratory), AX(Pacific Northwest National Laboratory),
+        AY(Lawrence Berkeley National Laboratory, California), AZ(Argonne National
+        Laboratory, Illinois), BA(Joint Genome Institute, Berkeley, United States),
+        BB(Lawrence Berkeley National Laboratory, California)
+    range: string
+  Language:
+    examples:
+    - value: en
+    range: Language_enum
+  Sub-type:
+    examples:
+    - value: Research Article
+    range: Sub-type_enum
+  Series:
+    examples:
+    - value: OWLED
+    range: string
+  Archive prefix:
+    examples:
+    - value: arXiv
+    range: Archive_prefix_enum
+  Eprint ID:
+    examples:
+    - value: '2307.05727'
+    range: float
+  Primary class:
+    examples:
+    - value: cs.AI
+    range: string
+  Pages cited:
+    examples:
+    - value: 1-4
+    range: datetime
+  Advisor:
+    examples:
+    - value: Tyers M
+    range: string
+  School:
+    examples:
+    - value: University of Edinburgh
+    range: string
+  Department:
+    examples:
+    - value: Biological Sciences
+    range: string
+  Degree:
+    examples:
+    - value: PhD
+    range: string
+  Source:
+    examples:
+    - value: arXiv [cs.AI]
+    range: string
+    comments:
+      - When the Item type is a Preprint Article, this slot should be used to record
+        the pre-print server where the article was published (e.g. arXiv, bioRxiv)
+  Dataset name:
+    examples:
+    - value: DRAGON-AI Definition Evaluations
+    range: string
+  Dataset author(s):
+    examples:
+    - value: Toro S,Mungall CJ
+    range: string
+  Dataset URL:
+    examples:
+    - value: https://huggingface.co/datasets/MonarchInit/dragon-ai-definition-evals
+    range: https identifier
+  Dataset DOI:
+    examples:
+    - value: 10.57967/hf/1486
+    range: string
+  Running time:
+    examples:
+    - value: 3149 sec
+    range: measurement
+  Directors:
+    examples:
+    - value: SWAT4HCLS
+    range: string
+  Date released:
+    examples:
+    - value: '2023-05-03'
+    range: string
+  Studio or distributor:
+    examples:
+    - value: Youtube
+    range: string
+  Library catalog/database:
+    examples:
+    - value: Zotero
+    range: string
+  Social Media handle:
+    examples:
+    - value: '@swat4hcls'
+    range: string
+classes:
+  Entry:
+    slots:
+    - Item type
+    - Authors
+    - Editors
+    - Title
+    - Journal
+    - Full journal
+    - Publication year
+    - Volume
+    - Issue
+    - Pages
+    - Folders filed in
+    - Labels filed in
+    - Institution
+    - Publisher
+    - Address
+    - Book title
+    - Proceedings title
+    - Conference
+    - Conference location
+    - Conference date
+    - Date published
+    - Date accessed
+    - ISBN
+    - ISBN (alt.)
+    - ISSN
+    - ISSN (alt.)
+    - URLs
+    - DOI
+    - PMID
+    - Arxiv ID
+    - Associated DOI
+    - PMC ID
+    - Abstract
+    - Keywords
+    - Notes
+    - Short title
+    - Copyright
+    - Affiliation
+    - Language
+    - Sub-type
+    - Series
+    - Archive prefix
+    - Eprint ID
+    - Primary class
+    - Pages cited
+    - Advisor
+    - School
+    - Department
+    - Degree
+    - Source
+    - Dataset name
+    - Dataset author(s)
+    - Dataset URL
+    - Dataset DOI
+    - Running time
+    - Directors
+    - Date released
+    - Studio or distributor
+    - Library catalog/database
+    - Social Media handle
+    unique_keys:
+      Editors_key:
+        unique_key_name: Editors_key
+        unique_key_slots:
+        - Editors
+      Title_key:
+        unique_key_name: Title_key
+        unique_key_slots:
+        - Title
+      Address_key:
+        unique_key_name: Address_key
+        unique_key_slots:
+        - Address
+      Book title_key:
+        unique_key_name: Book title_key
+        unique_key_slots:
+        - Book title
+      Conference_key:
+        unique_key_name: Conference_key
+        unique_key_slots:
+        - Conference
+      Conference location_key:
+        unique_key_name: Conference location_key
+        unique_key_slots:
+        - Conference location
+      Conference date_key:
+        unique_key_name: Conference date_key
+        unique_key_slots:
+        - Conference date
+      ISBN_key:
+        unique_key_name: ISBN_key
+        unique_key_slots:
+        - ISBN
+      ISBN (alt.)_key:
+        unique_key_name: ISBN (alt.)_key
+        unique_key_slots:
+        - ISBN (alt.)
+      URLs_key:
+        unique_key_name: URLs_key
+        unique_key_slots:
+        - URLs
+      DOI_key:
+        unique_key_name: DOI_key
+        unique_key_slots:
+        - DOI
+      PMID_key:
+        unique_key_name: PMID_key
+        unique_key_slots:
+        - PMID
+      Arxiv ID_key:
+        unique_key_name: Arxiv ID_key
+        unique_key_slots:
+        - Arxiv ID
+      Associated DOI_key:
+        unique_key_name: Associated DOI_key
+        unique_key_slots:
+        - Associated DOI
+      PMC ID_key:
+        unique_key_name: PMC ID_key
+        unique_key_slots:
+        - PMC ID
+      Abstract_key:
+        unique_key_name: Abstract_key
+        unique_key_slots:
+        - Abstract
+      Keywords_key:
+        unique_key_name: Keywords_key
+        unique_key_slots:
+        - Keywords
+      Notes_key:
+        unique_key_name: Notes_key
+        unique_key_slots:
+        - Notes
+      Copyright_key:
+        unique_key_name: Copyright_key
+        unique_key_slots:
+        - Copyright
+      Affiliation_key:
+        unique_key_name: Affiliation_key
+        unique_key_slots:
+        - Affiliation
+      Series_key:
+        unique_key_name: Series_key
+        unique_key_slots:
+        - Series
+      Eprint ID_key:
+        unique_key_name: Eprint ID_key
+        unique_key_slots:
+        - Eprint ID
+      Pages cited_key:
+        unique_key_name: Pages cited_key
+        unique_key_slots:
+        - Pages cited
+      Advisor_key:
+        unique_key_name: Advisor_key
+        unique_key_slots:
+        - Advisor
+      School_key:
+        unique_key_name: School_key
+        unique_key_slots:
+        - School
+      Department_key:
+        unique_key_name: Department_key
+        unique_key_slots:
+        - Department
+      Degree_key:
+        unique_key_name: Degree_key
+        unique_key_slots:
+        - Degree
+      Dataset name_key:
+        unique_key_name: Dataset name_key
+        unique_key_slots:
+        - Dataset name
+      Dataset URL_key:
+        unique_key_name: Dataset URL_key
+        unique_key_slots:
+        - Dataset URL
+      Dataset DOI_key:
+        unique_key_name: Dataset DOI_key
+        unique_key_slots:
+        - Dataset DOI
+      Running time_key:
+        unique_key_name: Running time_key
+        unique_key_slots:
+        - Running time
+      Directors_key:
+        unique_key_name: Directors_key
+        unique_key_slots:
+        - Directors
+      Date released_key:
+        unique_key_name: Date released_key
+        unique_key_slots:
+        - Date released
+      Studio or distributor_key:
+        unique_key_name: Studio or distributor_key
+        unique_key_slots:
+        - Studio or distributor
+      Social Media handle_key:
+        unique_key_name: Social Media handle_key
+        unique_key_slots:
+        - Social Media handle

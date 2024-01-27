@@ -1,0 +1,78 @@
+name: Mapping from Paperpile to Bibliomancer data model
+class_derivations:
+  Entry:
+    populated_from: Entry
+    slot_derivations:
+      type:
+        populated_from: Item type
+      title:
+        populated_from: Title # or Dataset name
+      authors:
+        populated_from: Authors
+        stringification:
+          reversed: true
+          delimiter: ','
+      journal:
+        populated_from: Journal
+      repository:
+        populated_from: Source
+      conference_proceedings:
+        populated_from: Proceedings title
+      urls:
+        populated_from: URLs
+        stringification:
+          reversed: true
+          delimiter: ';'
+      doi:
+        populated_from: DOI
+      pmid:
+        populated_from: PMID
+      pmcid:
+        populated_from: PMC ID
+      arxiv_id:
+        populated_from: Arxiv ID
+      year:
+        populated_from: Publication year
+      volume:
+        populated_from: Volume
+      issue:
+        populated_from: Issue
+      pages:
+        populated_from: Pages
+      keywords:
+        populated_from: Keywords
+        stringification:
+          delimiter: ';'
+          reversed: true
+enum_derivations:
+  TypeEnum:
+    permissible_value_derivations:
+      Preprint:
+        sources:
+          - Preprint Manuscript
+      JournalArticle:
+        sources:
+          - Journal Article
+          - Review
+      ConferencePaper:
+        sources:
+          - Conference Paper
+      BookChapter:
+        sources:
+          - Book Chapter
+      Dataset:
+        sources:
+          - Dataset
+      Dissertation:
+        sources:
+          - Thesis
+      Software:
+        sources:
+          - Computer Program
+      Report:
+        sources:
+          - Report
+      Audiovisual:
+        sources:
+          - Video or Film
+

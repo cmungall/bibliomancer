@@ -1,0 +1,570 @@
+name: biblio
+description: Bibliography data model
+id: https://w3id.org/linkml/biblio
+imports:
+- linkml:types
+prefixes:
+  linkml: https://w3id.org/linkml/
+  bilbio: https://w3id.org/bibliomancer/
+  datacite_vocab: http://purl.org/datacite/v4.4/
+  spar_datacite: http://purl.org/spar/datacite/
+  datacite: https://schema.datacite.org/
+  dcterm: http://purl.org/dc/terms/
+  bibo: http://purl.org/ontology/bibo/
+  schema: http://schema.org/
+default_prefix: biblio
+types:
+  VerbatimString:
+    typeof: string
+enums:
+  type_enum:
+    permissible_values:
+      Audiovisual:
+        meaning: datacite_vocab:Audiovisual
+        exact_mappings:
+          - dcterm:MovingImage
+      Book:
+        meaning: datacite_vocab:Book
+        exact_mappings:
+          - dcterm:Text
+      BookChapter:
+        meaning: datacite_vocab:BookChapter
+      ComputationalNotebook:
+        meaning: datacite_vocab:ComputationalNotebook
+        exact_mappings:
+          - dcterm:InteractiveResource
+      Collection:
+        meaning: datacite_vocab:Collection
+        exact_mappings:
+          - bibo:Collection
+      ConferencePaper:
+        meaning: datacite_vocab:ConferencePaper
+      ConferenceProceeding:
+        meaning: datacite_vocab:ConferenceProceeding
+      Dataset:
+        meaning: datacite_vocab:Dataset
+        exact_mappings:
+          - dcterm:Dataset
+      Dissertation:
+        meaning: datacite_vocab:Dissertation
+        exact_mappings:
+          - bibo:Thesis
+
+      Journal:
+        meaning: datacite_vocab:Journal
+      JournalArticle:
+        meaning: datacite_vocab:JournalArticle
+        broad_mappings:
+          - bibo:Article
+        exact_mappings:
+          - IAO:0000013
+      Model:
+        meaning: datacite_vocab:Model
+      PeerReview:
+        meaning: datacite_vocab:PeerReview
+      News:
+        meaning: datacite_vocab:News
+      Preprint:
+        meaning: datacite_vocab:Preprint
+      Report:
+        meaning: datacite_vocab:Report
+        exact_mappings:
+          - bibo:Report
+          - IAO:0000088
+      Software:
+        meaning: datacite_vocab:Software
+        exact_mappings:
+          - dcterm:Software
+          - IAO:0000010
+      Standard:
+        meaning: datacite_vocab:Standard
+      Other:
+        meaning: datacite_vocab:Other
+
+  ContributorType:
+    description: The type of contributor being represented
+    permissible_values:
+      Person:
+        description: a person
+        meaning: schema:Person
+      Organization:
+        description: an organization
+        meaning: schema:Organization
+    reachable_from:
+      source_ontology: bioportal:DATACITE-VOCAB
+      source_nodes:
+        - DataCite:ResourceCreatorType
+      include_self: false
+      relationship_types:
+        - RDFS:subClassOf
+
+  ContributorRole:
+    source: https://github.com/kbase/credit_engine/blob/develop/schema/kbase/linkml/credit_metadata.yaml
+    enum_uri: roleName
+    description: The type of contribution made by a contributor
+    permissible_values:
+      DataCite:ContactPerson:
+        meaning: DataCite:ContactPerson
+        title: contact person
+        description: Person with knowledge of how to access, troubleshoot, or otherwise field issues related to the resource. May also be "Point of Contact" in organisation that controls access to the resource, if that organisation is different from Publisher, Distributor, Data Manager.
+      DataCite:DataCollector:
+        meaning: DataCite:DataCollector
+        title: data collector
+        description: Person/institution responsible for finding, gathering/collecting data under the guidelines of the author(s) or Principal Investigator (PI). May also use when crediting survey conductors, interviewers, event or condition observers, person responsible for monitoring key instrument data.
+      DataCite:DataCurator:
+        meaning: DataCite:DataCurator
+        title: data curator
+        description: Person tasked with reviewing, enhancing, cleaning, or standardizing metadata and the associated data submitted for storage, use, and maintenance within a data centre or repository. While the "DataManager" is concerned with digital maintenance, the DataCurator's role encompasses quality assurance focused on content and metadata. This includes checking whether the submitted dataset is complete, with all files and components as described by submitter, whether the metadata is standardized to appropriate systems and schema, whether specialized metadata is needed to add value and ensure access across disciplines, and determining how the metadata might map to search engines, database products, and automated feeds.
+      DataCite:DataManager:
+        meaning: DataCite:DataManager
+        title: data manager
+        description: Person (or organisation with a staff of data managers, such as a data centre) responsible for maintaining the finished resource. The work done by this person or organisation ensures that the resource is periodically "refreshed" in terms of software/hardware support, is kept available or is protected from unauthorized access, is stored in accordance with industry standards, and is handled in accordance with the records management requirements applicable to it.
+      DataCite:Distributor:
+        meaning: DataCite:Distributor
+        title: distributor
+        description: Institution tasked with responsibility to generate/disseminate copies of the resource in either electronic or print form. Works stored in more than one archive/repository may credit each as a distributor.
+      DataCite:Editor:
+        meaning: DataCite:Editor
+        title: editor
+        description: A person who oversees the details related to the publication format of the resource. N.b. if the Editor is to be credited in place of multiple creators, the Editor's name may be supplied as Creator, with "(Ed.)" appended to the name.
+      DataCite:HostingInstitution:
+        meaning: DataCite:HostingInstitution
+        title: hosting institution
+        description: Typically, the organisation allowing the resource to be available on the internet through the provision of its hardware/software/operating support. May also be used for an organisation that stores the data offline. Often a data centre (if that data centre is not the "publisher" of the resource.)
+      DataCite:Producer:
+        meaning: DataCite:Producer
+        title: producer
+        description: Typically a person or organisation responsible for the artistry and form of a media product. In the data industry, this may be a company "producing" DVDs that package data for future dissemination by a distributor.
+      DataCite:ProjectLeader:
+        meaning: DataCite:ProjectLeader
+        title: project leader
+        description: Person officially designated as head of project team or sub- project team instrumental in the work necessary to development of the resource. The Project Leader is not "removed" from the work that resulted in the resource; he or she remains intimately involved throughout the life of the particular project team.
+      DataCite:ProjectManager:
+        meaning: DataCite:ProjectManager
+        title: project manager
+        description: Person officially designated as manager of a project. Project may consist of one or many project teams and sub-teams. The manager of a project normally has more administrative responsibility than actual work involvement.
+      DataCite:ProjectMember:
+        meaning: DataCite:ProjectMember
+        title: project member
+        description: Person on the membership list of a designated project/project team. This vocabulary may or may not indicate the quality, quantity, or substance of the person's involvement.
+      DataCite:RegistrationAgency:
+        meaning: DataCite:RegistrationAgency
+        title: registration agency
+        description: Institution/organisation officially appointed by a Registration Authority to handle specific tasks within a defined area of responsibility. DataCite is a Registration Agency for the International DOI Foundation (IDF). One of DataCite's tasks is to assign DOI prefixes to the allocating agents who then assign the full, specific character string to data clients, provide metadata back to the DataCite registry, etc.
+      DataCite:RegistrationAuthority:
+        meaning: DataCite:RegistrationAuthority
+        title: registration authority
+        description: A standards-setting body from which Registration Agencies obtain official recognition and guidance. The IDF serves as the Registration Authority for the International Standards Organisation (ISO) in the area/domain of Digital Object Identifiers.
+      DataCite:RelatedPerson:
+        meaning: DataCite:RelatedPerson
+        title: related person
+        description: A person without a specifically defined role in the development of the resource, but who is someone the author wishes to recognize. This person could be an author's intellectual mentor, a person providing intellectual leadership in the discipline or subject domain, etc.
+      DataCite:Researcher:
+        meaning: DataCite:Researcher
+        title: researcher
+        description: A person involved in analyzing data or the results of an experiment or formal study. May indicate an intern or assistant to one of the authors who helped with research but who was not so "key" as to be listed as an author. Should be a person, not an institution. Note that a person involved in the gathering of data would fall under the contributorType "DataCollector." The researcher may find additional data online and correlate it to the data collected for the experiment or study, for example.
+      DataCite:ResearchGroup:
+        meaning: DataCite:ResearchGroup
+        title: research group
+        description: Typically refers to a group of individuals with a lab, department, or division; the group has a particular, defined focus of activity. May operate at a narrower level of scope; may or may not hold less administrative responsibility than a project team.
+      DataCite:RightsHolder:
+        meaning: DataCite:RightsHolder
+        title: rights holder
+        description: Person or institution owning or managing property rights, including intellectual property rights over the resource.
+      DataCite:Sponsor:
+        meaning: DataCite:Sponsor
+        title: sponsor
+        description: Person or organisation that issued a contract or under the auspices of which a work has been written, printed, published, developed, etc. Includes organisations that provide in-kind support, through donation, provision of people or a facility or instrumentation necessary for the development of the resource, etc.
+      DataCite:Supervisor:
+        meaning: DataCite:Supervisor
+        title: supervisor
+        description: Designated administrator over one or more groups/teams working to produce a resource or over one or more steps of a development process.
+      DataCite:WorkPackageLeader:
+        meaning: DataCite:WorkPackageLeader
+        title: work package leader
+        description: A Work Package is a recognized data product, not all of which is included in publication. The package, instead, may include notes, discarded documents, etc. The Work Package Leader is responsible for ensuring the comprehensive contents, versioning, and availability of the Work Package during the development of the resource.
+      DataCite:Other:
+        meaning: DataCite:Other
+        title: other
+        description: Any person or institution making a significant contribution to the development and/or maintenance of the resource, but whose contribution does not "fit" other controlled vocabulary for contributorType. Could be a photographer, artist, or writer whose contribution helped to publicize the resource (as opposed to creating it), a reviewer of the resource, someone providing administrative services to the author (such as depositing updates into an online repository, analysing usage, etc.), or one of many other roles.
+      CRediT:conceptualization:
+        meaning: CRediT:conceptualization
+        title: conceptualization
+        description: Ideas; formulation or evolution of overarching research goals and aims.
+      CRediT:data-curation:
+        meaning: CRediT:data-curation
+        title: data curation
+        description: Management activities to annotate (produce metadata), scrub data and maintain research data (including software code, where it is necessary for interpreting the data itself) for initial use and later reuse.
+      CRediT:formal-analysis:
+        meaning: CRediT:formal-analysis
+        title: formal analysis
+        description: Application of statistical, mathematical, computational, or other formal techniques to analyze or synthesize study data.
+      CRediT:funding-acquisition:
+        meaning: CRediT:funding-acquisition
+        title: funding acquisition
+        description: Acquisition of the financial support for the project leading to this publication.
+      CRediT:investigation:
+        meaning: CRediT:investigation
+        title: investigation
+        description: Conducting a research and investigation process, specifically performing the experiments, or data/evidence collection.
+      CRediT:methodology:
+        meaning: CRediT:methodology
+        title: methodology
+        description: Development or design of methodology; creation of models.
+      CRediT:project-administration:
+        meaning: CRediT:project-administration
+        title: project administration
+        description: Management and coordination responsibility for the research activity planning and execution.
+      CRediT:resources:
+        meaning: CRediT:resources
+        title: resources
+        description: Provision of study materials, reagents, materials, patients, laboratory samples, animals, instrumentation, computing resources, or other analysis tools.
+      CRediT:software:
+        meaning: CRediT:software
+        title: software
+        description: Programming, software development; designing computer programs; implementation of the computer code and supporting algorithms; testing of existing code components.
+      CRediT:supervision:
+        meaning: CRediT:supervision
+        title: supervision
+        description: Oversight and leadership responsibility for the research activity planning and execution, including mentorship external to the core team.
+      CRediT:validation:
+        meaning: CRediT:validation
+        title: validation
+        description: Verification, whether as a part of the activity or separate, of the overall replication/reproducibility of results/experiments and other research outputs.
+      CRediT:visualization:
+        meaning: CRediT:visualization
+        title: visualization
+        description: Preparation, creation and/or presentation of the published work, specifically visualization/data presentation.
+      CRediT:writing-original-draft:
+        meaning: CRediT:writing-original-draft
+        title: writing, original draft
+        description: Preparation, creation and/or presentation of the published work, specifically writing the initial draft (including substantive translation).
+      CRediT:writing-review-editing:
+        meaning: CRediT:writing-review-editing
+        title: writing, review and/or editing
+        description: Preparation, creation and/or presentation of the published work by those from the original research group, specifically critical review, commentary or revision -- including pre- or post-publication stages.
+    reachable_from:
+      source_ontology: bioportal:DATACITE-VOCAB
+      source_nodes:
+        - DataCite:ContributorRole
+      include_self: false
+      relationship_types:
+        - RDFS:subClassOf
+
+
+  role_enum:
+    permissible_values:
+      senior:
+        description: The investigator who had a primary role in conceiving and directing the study,
+          and is ultimately solely responsible for the final content of the publication.
+          Typically listed last.
+      co_senior:
+        description: One of two or more senior investigators who played a major driving role
+          is conceiving and directing the study, and has a major say in the final content of
+          the publication.
+      lead:
+        description: The researcher who conducted a major portion of the work, sometimes also
+          playing a major role in conceiving and directing the study. Typically listed first.
+      co_lead:
+        description: One of two or more researchers who jointly conducted the majority of the work
+      other_major:
+        description: A researcher who made major contributions to the work
+      contributor:
+        description: A researcher who was among many who made valuable contributions to the work,
+          but it not among the major contributors
+      sole:
+        description: A researcher who conducted the work independently, without the assistance
+          of others
+slots:
+  type:
+    examples:
+    - value: JournalArticle
+    ## 
+    range: type_enum
+  title:
+    required: true
+    slot_uri: dcterm:title
+    exact_mappings:
+      - datacite:Title
+    examples:
+    - value: 129. Standardization of cancer terminology in the Mondo Disease Ontology
+    ## 
+    range: string
+  authors:
+    slot_uri: dcterm:creator
+    examples:
+    - value: '[''Vasilevsky N'', ''Matentzoglu N'', ''Toro S'', ''Flack J'', ''Hamosh
+        A'', ''Robinson P'', ''Haendel M'', ''Mungall C'']'
+    ##
+    exact_mappings:
+      - datacite:Identifier
+    multivalued: true
+    recommended: true
+    range: string
+  authors_verbatim:
+    range: VerbatimString
+    description: >-
+      A verbatim representation of the authors, as it appears in the original source.
+      This is useful for cases where the original source uses a non-standard format
+      for representing authors, such as a list of names separated by commas.
+    annotations:
+      separator: ','
+  authors_relationships:
+    range: EntryToAuthorRelationship
+    multivalued: true
+
+  journal:
+    slot_uri: dcterm:source
+    exact_mappings:
+      - datacite:Publisher
+    examples:
+    - value: Cancer Genet.
+    ## 
+    range: string
+  repository:
+    examples:
+    - value: bioRxiv
+  conference_proceedings:
+    examples:
+    - value: 'Proceedings of the 2021 International Conference on Biomedical Ontology
+        (ICBO 2021)'
+    ##
+    range: string
+  doi:
+    examples:
+    - value: 10.1016/j.cancergen.2022.10.132
+    exact_mappings:
+      - datacite:Identifier
+      - EDAM:data_1188
+    range: string
+  pmid:
+    description: A unique identifier for a published article in the PubMed database
+    examples:
+    - value: '35961013'
+    ## 
+    range: string
+    exact_mappings:
+      - EDAM:data_1187
+  pmcid:
+    examples:
+    - value: PMC9374478
+    ## 
+    range: string
+  arxiv_id:
+    examples:
+    - value: '2102.12345'
+    ##
+    range: string
+  biorxiv_id:
+    range: string
+  chemrxiv_id:
+    range: string
+  urls:
+    multivalued: true
+    range: uri
+  urls_verbatim:
+  ceur_ws_url:
+    range: uri
+    pattern: '^https?://ceur-ws.org/'
+  year:
+    examples:
+    - value: '2022'
+    ## 
+    range: string
+    exact_mappings:
+      - datacite:PublicationYear
+  volume:
+    examples:
+    - value: '268'
+    range: string
+  issue:
+    examples:
+    - value: '7'
+    range: string
+  pages:
+    description: Number of pages within the container.
+    examples:
+    - value: '41'
+    range: string
+  num_authors:
+    examples:
+    - value: 8
+    equals_expression: "len(authors)"
+    range: integer
+  position:
+    description: 'Description for ''position'' SlotDefinition: "Specifies the location
+      or order within the container."'
+    examples:
+    - value: 8
+    ## 
+    range: integer
+  rank:
+    examples:
+    - value: -1
+    ## 
+    range: integer
+  significance:
+    examples:
+    - value: 1.0
+    ## 
+    range: float
+  role:
+    examples:
+    - value: last
+    range: role_enum
+  local_id:
+    description: 'Description: "Unique identifier assigned to an item within the context
+      of the container."'
+    examples:
+    - value: 4(1):2200016
+    ## 
+    range: string
+  keywords:
+    slot_uri: schema:keywords
+    examples:
+    - value: '[''ontology'', ''disease'', ''cancer'', ''standardization'', ''Mondo'']'
+    ##
+    range: string
+    multivalued: true
+    exact_mappings:
+      - datacite:Subject
+classes:
+  Bibliography:
+    attributes:
+      entries:
+        range: Entry
+        multivalued: true
+        description: >-
+          A collection of bibliographic entries
+  Entry:
+    tree_root: true
+    slots:
+    - type
+    - title
+    - authors
+    - authors_verbatim
+    - journal
+    - repository
+    - conference_proceedings
+    - urls
+    - urls_verbatim
+    - ceur_ws_url
+    - doi
+    - pmid
+    - pmcid
+    - arxiv_id
+    - chemrxiv_id
+    - year
+    - volume
+    - issue
+    - pages
+    - num_authors
+    - position
+    - rank
+    - significance
+    - role
+    - local_id
+    unique_keys:
+      doi:
+        consider_nulls_inequal: true
+        unique_key_slots:
+        - doi
+      pmid:
+        consider_nulls_inequal: true
+        unique_key_slots:
+        - pmid
+      pmcid:
+        consider_nulls_inequal: true
+        unique_key_slots:
+        - pmcid
+      arxiv_id:
+        consider_nulls_inequal: true
+        unique_key_slots:
+        - arxiv_id
+      journal_key:
+        consider_nulls_inequal: true
+        unique_key_slots:
+        - journal
+        - year
+        - volume
+        - issue
+        - title
+      journal_id_local:
+        consider_nulls_inequal: true
+        unique_key_slots:
+          - journal
+          - local_id
+      type_title:
+        consider_nulls_inequal: false
+        unique_key_slots:
+        - type
+        - title
+    rules:
+      - preconditions:
+          any_of:
+            - slot_conditions:
+              - type:
+                  equals_string: JournalArticle
+            #- slot_conditions:
+            #  - type:
+            #      equals_string: Preprint
+        postconditions:
+          slot_conditions:
+            journal:
+              required: true
+
+  Author:
+    class_uri: dcterm:Agent
+  Person:
+    is_a: Author
+  Organization:
+    is_a: Author
+
+  EntryToAuthorRelationship:
+    description: A relationship between an entry and an author, including the author's position
+      in the author list. Note that the author is stored in a denormalized form, so
+    attributes:
+      name:
+        slot_uri: dcterm:name
+        range: string
+        description: >-
+          The name of the agent
+      contributor_type:
+        range: ContributorType
+        description: >-
+          The type of contributor being represented
+      given_name:
+        slot_uri: schema:givenName
+        range: string
+        description: >-
+          The given name of the agent
+      family_name:
+        slot_uri: schema:familyName
+        range: string
+        description: >-
+          The family name of the agent
+      middle_names:
+        range: string
+        description: >-
+          The middle names of the agent
+      orcid:
+        range: string
+        description: >-
+          The ORCID identifier of the agent
+      affiliation:
+        slot_uri: datacite:affiliation
+        range: string
+        description: >-
+          The affiliation of the agent
+      position:
+        range: integer
+        description: >-
+          The position of the author in the author list
+      contributor_roles:
+        range: ContributorRole
+      author_object:
+        range: Author
+        description: >-
+          The author of the entry
+
+      
