@@ -2,6 +2,13 @@
 
 Performs magic on bibliographies
 
-# Acknowledgements
+Vision:
 
-This [cookiecutter](https://cookiecutter.readthedocs.io/en/stable/README.html) project was developed from the [monarch-project-template](https://github.com/monarch-initiative/monarch-project-template) template and will be kept up-to-date using [cruft](https://cruft.github.io/cruft/).
+- bibliography management based on well-defined datamodels and clearly specified schema/ontology mappings
+- Automated inference of missing metadata
+
+Current implementation
+
+- Currently only works for paperpile CSV exports
+- Has some missing metadata inference (e.g. DOIs from pre-print URLs, PMC from PMID)
+- Export to markdown via jinja templates for exporting CVs etc
